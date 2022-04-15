@@ -1,0 +1,4 @@
+openshift:
+  organziation: "openshift"
+  user: "gui-user-openshift"
+  state: "present"
