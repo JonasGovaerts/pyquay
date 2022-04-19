@@ -4,7 +4,7 @@ import pyquay
 import logging
 
 def main():
-    endpoint="https://quay-enterprise.cluster.mgt.int.corp"
+    endpoint="https://quay-enterprise.cluster.mgt.int.corp/api/v1"
     token="30m7Z7pfsKhicWj8ccGFtWmp5twigLdVsT8Sc0X5"
     config="./config.yml"
     organizations = []

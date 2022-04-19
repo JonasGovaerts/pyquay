@@ -35,6 +35,7 @@ class quay_client:
     def organziation(self, name, state):
         def exists():
             r = requests.get(self.endpoint+"/organization/"+name,headers=self.headers)
+            print(str(r.status_code))
             if self.checkHttpResponse(str(r.status_code)):
                 return True
             else:
