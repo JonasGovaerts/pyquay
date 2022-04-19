@@ -1,7 +1,8 @@
 import logging
-#import requests
+import requests
 import re
 import logging
+import json
 
 class quay_client:
     def __init__(self, endpoint, token):
@@ -9,7 +10,7 @@ class quay_client:
         self.token = token
         headers = {'Authorization': 'Bearer '+token}
 
-    def checkHttpResponse(httpCode,org):
+    def checkHttpResponse(httpCode):
         try:
             reg_200 = re.compile("20.")
             reg_300 = re.compile("30.")
@@ -32,31 +33,120 @@ class quay_client:
             return False
 
     def organziation(self, name, state):
-        def exists(self):
-            return True
-        def create(self):
-            return True        
-        def delete(self):
-            return True
+        def exists():
+            r = requests.get(self.endpoint+"/organization/"+name,headers=self.headers)
+            if self.checkHttpResponse(str(r.status_code)):
+                return True
+            else:
+                return False
+        def create():
+            payload = {'name': name}
+            r = requests.post(self.endpoint+"/organization/",data=json.dumps(payload),headers=self.headers)
+            if self.checkHttpResponse(str(r.status_code)):
+                return True
+            else:
+                return False        
+        def delete():
+            r = requests.delete(self.endpoint+"/organization/"+name,headers=self.headers)
+            if self.checkHttpResponse(str(r.status_code)):
+                return True
+            else:
+                return False
         
         if state == "present":
-            if not exists:
-                create
-                return "organzition exists"
+            if exists:
+                if create:
+                    result = "created"
         elif state == "absent":
             if exists:
-                delete
-                return "organization deleted"
+                if delete:
+                    result = "deleted"
         else:
-            logging.raiseExceptions("No valid state provided")
+            result = "error"
+        
+        return result
 
 
-    def repository(self, name):
-        def exists(self):
-            print("Repository "+name+" exists")
-        def create(self):
-            print("Created repository "+name)
-        def delete(self):
-            print("Deleted repository "+name)
-        def changeMirror(self):
-            print("Changed repository "+name+" to mirror")
+    def robot(self,name, state):
+        def exists():
+            return True
+        def create():
+            return True
+        def delete():
+            return True
+
+        if state == "present":
+            if exists:
+                if create:
+                    result = "created"
+        elif state == "absent":
+            if exists:
+                if delete:
+                    result = "deleted"
+        else:
+            result = "error"
+        
+        return result
+
+    def team(self,name, state):
+        def exists():
+            return True
+        def create():
+            return True
+        def delete():
+            return True
+
+        if state == "present":
+            if exists:
+                if create:
+                    result = "created"
+        elif state == "absent":
+            if exists:
+                if delete:
+                    result = "deleted"
+        else:
+            result = "error"
+        
+        return result
+
+    def repository(self,name, state):
+        def exists():
+            return True
+        def create():
+            return True
+        def delete():
+            return True
+
+        if state == "present":
+            if exists:
+                if create:
+                    result = "created"
+        elif state == "absent":
+            if exists:
+                if delete:
+                    result = "deleted"
+        else:
+            result = "error"
+        
+        return result
+
+    def user(self,name, state):
+        def exists():
+            return True
+        def create():
+            return True
+        def delete():
+            return True
+
+        if state == "present":
+            if exists:
+                if create:
+                    result = "created"
+        elif state == "absent":
+            if exists:
+                if delete:
+                    result = "deleted"
+        else:
+            result = "error"
+        
+        return result

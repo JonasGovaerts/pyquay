@@ -1,4 +1,21 @@
 openshift:
-  organziation: "openshift"
-  user: "gui-user-openshift"
-  state: "present"
+  organization:
+    name: "openshift"
+    state: "present"
+  user:
+    name: "openshift"
+    state: "present"
+  robots:
+     - name: "pull"
+       state: "present"
+     - name: "push"
+       state: "present"
+  teams:
+    - name: "read"
+      state: "present"
+      members:
+      - "robot+pull"
+    - name: "write"
+      state: "present"
+      members:
+      - "robot+push"
