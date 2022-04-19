@@ -12,10 +12,12 @@ openshift:
        state: "present"
   teams:
     - name: "read"
+      role:  "member"
       state: "present"
       members:
       - "robot+pull"
     - name: "write"
       state: "present"
+      role: "creator"
       members:
       - "robot+push"

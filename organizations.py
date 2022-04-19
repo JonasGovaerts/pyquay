@@ -21,32 +21,33 @@ def main():
 
     for organization in organizations:
         data = cfg[organization]
-        name = data["organization"]["name"]
-        state = data["organization"]["state"]
+        organization_name = data["organization"]["name"]
+        organization_state = data["organization"]["state"]
         
         #Create organization
-        result = quay.organziation(name=name,state=state)
-        logger.info("Organization "+name+ " "+result)
+        #result = quay.organziation(name=organization_name,state=organization_state)
+        #logger.info("Organization "+organization_name+ " "+result)
 
         #Create robotaccounts
-        for robot in data["robots"]:
-            name = robot["name"]
-            state = robot["state"]
-            result = quay.robot(name=name, state=state)
-            logger.info("Robot "+name+" "+result)
+        #for robot in data["robots"]:
+        #    robot_name = robot["name"]
+        #    robot_state = robot["state"]
+        #    result = quay.robot(name=robot_name, state=robot_state, org=organization_name)
+        #    logger.info("Robot "+robot_name+" "+result)
 
         #Create teams
         for team in data["teams"]:
-            name = team["name"]
-            state = team["state"]
-            result = quay.team(name=name, state=state)
-            logger.info("Team "+name+" "+result)
+            team_name = team["name"]
+            team_state = team["state"]
+            role =  team["role"]
+            result = quay.team(name=team_name, state=team_state, role=role, org=organization_name, description="")
+            logger.info("Team "+team_name+" "+result)
 
         #Create user
-        name = data["user"]["name"]
-        state = data["user"]["state"]
-        result = quay.user(name=name, state=state)
-        logger.info("User "+name+" "+result)
+        user_name = data["user"]["name"]
+        user_state = data["user"]["state"]
+        result = quay.user(name=user_name, state=user_state)
+        logger.info("User "+user_name+" "+result)
 
 if __name__ == "__main__":
     main()
