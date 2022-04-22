@@ -1,15 +1,19 @@
+#!/bin/python
 import logging
 import yaml
 import pyquay
 import logging
 
 def main():
-    endpoint="https://quay-enterprise.cluster.mgt.int.corp/api/v1"
+    #endpoint="https://quay-enterprise.cluster.mgt.int.corp/api/v1"
+    endpoint="https://quay.io/api/v1"
     token="30m7Z7pfsKhicWj8ccGFtWmp5twigLdVsT8Sc0X5"
     config="./config.yml"
     organizations = []
+    
+    logger = logging
+    logger.getLogger(__name__)
     logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
 
     quay = pyquay.quay_client(endpoint,token)
     
@@ -25,15 +29,15 @@ def main():
         organization_state = data["organization"]["state"]
         
         #Create organization
-        #result = quay.organziation(name=organization_name,state=organization_state)
-        #logger.info("Organization "+organization_name+ " "+result)
+        result = quay.organziation(name=organization_name,state=organization_state)
+        logger.info(result)
 
         #Create robotaccounts
-        #for robot in data["robots"]:
-        #    robot_name = robot["name"]
-        #    robot_state = robot["state"]
-        #    result = quay.robot(name=robot_name, state=robot_state, org=organization_name)
-        #    logger.info("Robot "+robot_name+" "+result)
+        for robot in data["robots"]:
+            robot_name = robot["name"]
+            robot_state = robot["state"]
+            result = quay.robot(name=robot_name, state=robot_state, org=organization_name)
+            logger.info(result)
 
         #Create teams
         for team in data["teams"]:
@@ -41,12 +45,20 @@ def main():
             team_state = team["state"]
             role =  team["role"]
             result = quay.team(name=team_name, state=team_state, role=role, org=organization_name, description="")
-            logger.info("Team "+team_name+" "+result)
+            logger.info("Team "+team_name+" in organization "+organization_name+" "+result)
+
+            ## add members to team
+            for member in team["members"]:
+                name = member["name"]
+                state = member["state"]
+                result = quay.team_member(name=name,team_name=team_name, state=state)
+                logger.info(result)
 
         #Create user
         user_name = data["user"]["name"]
         user_state = data["user"]["state"]
-        result = quay.user(name=user_name, state=user_state)
+        user_email = data["user"]["email"]
+        result = quay.user(name=user_name, state=user_state, email=user_email)
         logger.info("User "+user_name+" "+result)
 
 if __name__ == "__main__":
