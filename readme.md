@@ -10,3 +10,10 @@ Following functions are available for use:
 - team_member
 - user
 - repository
+
+## Examples
+### Creating an organization
+```Python
+quay = pyquay.quay_client(endpoint,token)
+result = quay.organziation(name=organization_name,state=organization_state)
+```
