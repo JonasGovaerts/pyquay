@@ -1,4 +1,5 @@
-#!/bin/python
+#!/bin/python3.10
+
 import logging
 import yaml
 import pyquay
