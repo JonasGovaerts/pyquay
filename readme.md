@@ -29,4 +29,10 @@ quay = pyquay.quay_client(endpoint,token)
 result = quay.team(name=name, state=state, role=role, org=organization_name, description=description) # state = "present" or state = "absent" : role = "member"  or role = "creator" or role = "admin"
 ```
 
+### Creating a user
+```Python
+quay = pyquay.quay_client(endpoint,token)
+result = quay.user(name=user, state=state, email=email) # state = "present" or state = "absent"
+```
+
 

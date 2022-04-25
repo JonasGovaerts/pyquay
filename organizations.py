@@ -59,7 +59,8 @@ def main():
         user_name = data["user"]["name"]
         user_state = data["user"]["state"]
         user_email = data["user"]["email"]
-        result = quay.user(name=user_name, state=user_state, email=user_email)
+        
+        
         logger.info("User "+user_name+" "+result)
 
 if __name__ == "__main__":
