@@ -52,7 +52,7 @@ def main():
             for member in team["members"]:
                 name = member["name"]
                 state = member["state"]
-                result = quay.team_member(name=name,team_name=team_name, state=state)
+                result = quay.team_member(name=name, team_name=team_name, state=state, org=organization_name)
                 logger.info(result)
 
         #Create user

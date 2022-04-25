@@ -123,6 +123,8 @@ class quay_client:
                     result = "Robot "+name+" created successfully"
                 else:
                     result = "Failed to create robot "+name
+            else:
+                    result = "Robot "+name+" already exists"
         elif state == "absent":
             if exists(name):
                 if delete(name):
