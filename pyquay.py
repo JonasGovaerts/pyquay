@@ -195,9 +195,9 @@ class quay_client:
         if state == "present":
             if not exists(name):
                 if add(name):
-                    result = "created"
+                    result = "Member "+name+" added successfully to team "+team_name
                 else:
-                    result = "failed"
+                    result = "Failed to add "+name+" to team "+team_name
         elif state == "non-member":
             if exists(name):
                 if delete(name):
